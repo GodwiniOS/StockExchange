@@ -91,7 +91,7 @@ class MovieTableViewCell: UITableViewCell {
         askLabel.prepareLayout(.leading,constant: screenWidth * 0.7)
         askLabel.prepareLayout(.top)
         askLabel.prepareLayout(.bottom)
-        askLabel.prepareLayout(.trailing,constant: -10)
+        askLabel.prepareLayout(.trailing,constant: -4)
         askLabel.textAlignment = .right
         askLabel.textColor = .white
 
@@ -120,33 +120,41 @@ class MovieTableViewCell: UITableViewCell {
         bottomLineView.prepareHeight(constant: 1)
         bottomLineView.setBackgroundColor(.headerBorder)
         
+
     }
     
-    func prepareCell(_ data: ExchangeData? = nil){
+    func prepareCell(_ value: ExchangeData){
         
 
 
-        guard let value = data else {
 
-            askLabel.text = "Ask"
-            bidLabel.text = "Bid"
-            currencyLabel.text =  "Symbol"
-            backGroundView.setBackgroundColor(.headerBG)
-            splitLineView.setBackgroundColor(.headerBG)
+        guard value.isHeader else {
+
+            currencySymbolView.setImage(value.currency.symbol().name())
+
+            splitLineView.setBackgroundColor(.background)
+
+            askLabel.prepareLabel(money: value.askValue)
+            bidLabel.prepareLabel(money: value.bidValue)
+            currencyLabel.text = value.currency.asText()
+            bottomLineView.setBackgroundColor(.background)
+            topLineView.setBackgroundColor(.headerBG)
+
+            bidLabel.backgroundColor = value.bidValue.level.asColor().color()
+            askLabel.backgroundColor = value.askValue.level.asColor().color()
+
+            
 
             return
         }
 
-        splitLineView.setBackgroundColor(.background)
-
-        askLabel.prepareLabel(money: value.askValue)
-        bidLabel.prepareLabel(money: value.bidValue)
-        currencyLabel.text = value.currency.asText()
-        bottomLineView.setBackgroundColor(.background)
-        topLineView.setBackgroundColor(.headerBG)
-
+        
+        askLabel.text = "Ask"
+        bidLabel.text = "Bid"
+        currencyLabel.text =  "Symbol"
         
 
-
+        backGroundView.setBackgroundColor(.headerBG)
+        splitLineView.setBackgroundColor(.headerBG)
     }
 }

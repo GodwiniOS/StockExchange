@@ -42,7 +42,7 @@ class ExchangeListVC: UIViewController {
 extension ExchangeListVC: UITableViewDelegate,UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        exchangeListVM.exchangeValues.count + 1
+        exchangeListVM.exchangeValues.count
     }
 
 
@@ -50,12 +50,7 @@ extension ExchangeListVC: UITableViewDelegate,UITableViewDataSource {
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let exchangeTVC = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
-        
-        if indexPath.row == 0,indexPath.section == 0 {
-            exchangeTVC.prepareCell()
-        } else {
-            exchangeTVC.prepareCell(exchangeListVM.exchangeValues[indexPath.row - 1])
-        }
+        exchangeTVC.prepareCell(exchangeListVM.exchangeValues[indexPath.row])
         return exchangeTVC
     }
 

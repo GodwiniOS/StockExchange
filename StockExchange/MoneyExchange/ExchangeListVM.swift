@@ -11,9 +11,18 @@ import UIKit
 
 struct ExchangeData {
     
-    let currency: ExcahngeCurrency
-    let bidValue: MoneyData
-    let askValue: MoneyData
+    var isHeader = false
+    let currency: ExcahngeCurrency!
+    let bidValue: MoneyData!
+    let askValue: MoneyData!
+}
+
+
+enum APPIMAGE: String {
+    
+    case currencyC = "currencyC"
+    case currencyM = "currencyM"
+//    case symbol = "symbol"
 }
 
 enum StockLevel {
@@ -68,14 +77,14 @@ enum APPColor {
     case background
     case Label
     
-    func asColor() -> UIColor{
+    func color() -> UIColor{
         
         switch self {
         
-        case .RED: return .red
-        case .GREEN: return .green
-        case .RedDull: return .red
-        case .GreenDull: return .green
+        case .RED: return UIColor(red: 125/255, green: 32/255, blue: 32/255, alpha: 255)
+        case .GREEN: return UIColor(red: 31/255, green: 71/255, blue: 34/255, alpha: 255)
+        case .RedDull: return UIColor(red: 102/255, green: 33/255, blue: 33/255, alpha: 255)
+        case .GreenDull: return UIColor(red: 34/255, green: 57/255, blue: 36/255, alpha: 255)
 
             
         case .headerBG: return .black
@@ -83,7 +92,7 @@ enum APPColor {
         case .HeaderLabel: return .lightGray
 
 
-        case .background: return .darkGray
+        case .background: return UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 255)
         case .Label: return .white
 
         }
@@ -94,12 +103,14 @@ enum APPColor {
 enum ExcahngeSymbol {
     case C
     case M
-    
-    func asText() -> String{
+    case symbol
+
+    func name() -> APPIMAGE{
         switch self {
-        case .C: return "logoC"
-        case .M: return "logoM"
-            
+        case .C: return .currencyC
+        case .M: return .currencyM
+        case .symbol: return .currencyM
+
         }
     }
 }
@@ -131,7 +142,8 @@ enum ExcahngeCurrency: String {
 class ExchangeListViewModel {
     
     // MARK: - Properties
-    var exchangeValues: [ExchangeData] = []
+    var exchangeValues: [ExchangeData] = [ExchangeData(isHeader: true,
+                                                       currency: nil, bidValue: nil, askValue: nil)]
     
     init() {
         addInitialVAlues()
@@ -152,9 +164,9 @@ class ExchangeListViewModel {
                                       MoneyData(first: "357.", second: 54, level: .veryLow),
                                       MoneyData(first: "1.64", second: 99, third: 8),
                                       MoneyData(first: "1.07", second: 98, third: 6, level: .Low),
-                                      MoneyData(first: "0.90", second: 89, third: 7),
+                                      MoneyData(first: "0.90", second: 89, third: 7, level: .High),
                                       MoneyData(first: "122.", second: 54, third: 1, level: .High),
-                                      MoneyData(first: " 1.81", second: 51, third: 9, level: .High)]
+                                      MoneyData(first: " 1.81", second: 51, third: 9)]
 
         let askValues: [MoneyData] = [MoneyData(first: "1.16", second: 29, third: 8),
                                       MoneyData(first: "22.", second: 77),

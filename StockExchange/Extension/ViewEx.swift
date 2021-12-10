@@ -76,11 +76,28 @@ extension UIView {
     
     
     func setBackgroundColor(_ color: APPColor) {
-        backgroundColor = color.asColor()
+        backgroundColor = color.color()
     }
     
 
+    
+    func setBackgroundColorCurrency(_ level: StockLevel) {
+        
+        
+
+        
+    }
+    
 }
+
+
+extension UIImageView {
+
+    func setImage(_ name: APPIMAGE) {
+        image = UIImage(named: name.rawValue)
+    }
+}
+
 
 
 
