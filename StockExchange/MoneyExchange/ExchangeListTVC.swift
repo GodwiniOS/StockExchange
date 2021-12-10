@@ -41,7 +41,7 @@ class MovieTableViewCell: UITableViewCell {
         selectionStyle = .none
         contentView.backgroundColor = .clear
         contentView.superview?.backgroundColor = .clear
-        contentView.prepareHeight(constant: 80)
+        contentView.prepareHeight(constant: 72)
         contentView.addSubview(backGroundView)
 
         backGroundView.prepareLayout(.leading)
@@ -84,6 +84,7 @@ class MovieTableViewCell: UITableViewCell {
         bidLabel.numberOfLines = 0
         bidLabel.textAlignment = .right
         bidLabel.textColor = .white
+        bidLabel.prepareTextField(size: .subtite,textcolor: .white)
 
 
         // prepare Title label
@@ -94,6 +95,7 @@ class MovieTableViewCell: UITableViewCell {
         askLabel.prepareLayout(.trailing,constant: -4)
         askLabel.textAlignment = .right
         askLabel.textColor = .white
+        askLabel.prepareTextField(size: .subtite,textcolor: .white)
 
 //        askLabel.prepareTextField(size: .subtite)
         // prepare completedButton
@@ -152,7 +154,8 @@ class MovieTableViewCell: UITableViewCell {
         askLabel.text = "Ask"
         bidLabel.text = "Bid"
         currencyLabel.text =  "Symbol"
-        
+        currencySymbolView.setImage(.symbol)
+
 
         backGroundView.setBackgroundColor(.headerBG)
         splitLineView.setBackgroundColor(.headerBG)

@@ -178,8 +178,8 @@ extension Double {
 
 enum FontSize: CGFloat {
     
-    case title = 24
-    case subtite = 10
+    case title = 26
+    case subtite = 22
 }
 
 

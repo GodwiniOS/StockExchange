@@ -22,7 +22,7 @@ enum APPIMAGE: String {
     
     case currencyC = "currencyC"
     case currencyM = "currencyM"
-//    case symbol = "symbol"
+    case symbol = "symbol"
 }
 
 enum StockLevel {
@@ -35,8 +35,8 @@ enum StockLevel {
 
     func asColor() -> APPColor {
         switch self {
-        case .High: return .GREEN
-        case .Low: return .RED
+        case .High: return .GreenDull
+        case .Low: return .RedDull
         case .veryHigh: return .GREEN
         case .veryLow: return .RED
         case .normal: return .background
@@ -81,18 +81,19 @@ enum APPColor {
         
         switch self {
         
-        case .RED: return UIColor(red: 125/255, green: 32/255, blue: 32/255, alpha: 255)
-        case .GREEN: return UIColor(red: 31/255, green: 71/255, blue: 34/255, alpha: 255)
+        case .RED: return UIColor(red: 184/255, green: 32/255, blue: 32/255, alpha: 255)
+        case .GREEN: return UIColor(red: 40/255, green: 160/255, blue: 40/255, alpha: 255)
+            
         case .RedDull: return UIColor(red: 102/255, green: 33/255, blue: 33/255, alpha: 255)
         case .GreenDull: return UIColor(red: 34/255, green: 57/255, blue: 36/255, alpha: 255)
 
             
-        case .headerBG: return .black
+        case .headerBG: return UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 255)
         case .headerBorder: return .orange
         case .HeaderLabel: return .lightGray
 
 
-        case .background: return UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 255)
+        case .background: return UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 255)
         case .Label: return .white
 
         }
@@ -109,7 +110,7 @@ enum ExcahngeSymbol {
         switch self {
         case .C: return .currencyC
         case .M: return .currencyM
-        case .symbol: return .currencyM
+        case .symbol: return .symbol
 
         }
     }
@@ -175,7 +176,7 @@ class ExchangeListViewModel {
                                       MoneyData(first: "46.", second: 33),
                                       MoneyData(first: "357.", second: 59, level: .veryLow),
                                       MoneyData(first: "1.65", second: 02, third: 6),
-                                      MoneyData(first: "1.08", second: 02, third: 0, level: .High),
+                                      MoneyData(first: "1.08", second: 02, third: 0, level: .veryHigh),
                                       MoneyData(first: "0.90", second: 91, third: 0, level: .Low),
                                       MoneyData(first: "122.", second: 54, third: 5, level: .Low),
                                       MoneyData(first: "1.81", second: 53, third: 3)]
