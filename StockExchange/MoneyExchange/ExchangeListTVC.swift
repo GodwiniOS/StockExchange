@@ -144,7 +144,11 @@ class MovieTableViewCell: UITableViewCell {
 
             bidLabel.backgroundColor = value.bidValue.level.asColor().color()
             askLabel.backgroundColor = value.askValue.level.asColor().color()
-
+            currencyLabel.backgroundColor = APPColor.background.color()
+            backGroundView.backgroundColor = APPColor.background.color()
+            
+            topLineView.setBackgroundColor(.headerBG)
+            bottomLineView.setBackgroundColor(.headerBG)
             return
         }
 
@@ -153,9 +157,15 @@ class MovieTableViewCell: UITableViewCell {
         bidLabel.text = "Bid"
         currencyLabel.text =  "Symbol"
         currencySymbolView.setImage(.symbol)
-
-
         backGroundView.setBackgroundColor(.headerBG)
         splitLineView.setBackgroundColor(.headerBG)
+        askLabel.backgroundColor = APPColor.headerBG.color()
+        bidLabel.backgroundColor = APPColor.headerBG.color()
+        currencyLabel.backgroundColor = APPColor.headerBG.color()
+        backGroundView.backgroundColor = APPColor.headerBG.color()
+        
+        
+        topLineView.setBackgroundColor(.headerBorder)
+        bottomLineView.setBackgroundColor(.headerBorder)
     }
 }
