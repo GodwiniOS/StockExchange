@@ -6,15 +6,14 @@
 //
 
 import Foundation
-import UIKit
 
 
 struct ExchangeData {
     
     var isHeader = false
     let currency: ExcahngeCurrency!
-    let bidValue: MoneyData!
-    let askValue: MoneyData!
+    var bidValue: MoneyData!
+    var askValue: MoneyData!
 }
 
 
@@ -29,16 +28,12 @@ enum StockLevel {
     
     case High
     case Low
-    case veryHigh
-    case veryLow
     case normal
 
     func asColor() -> APPColor {
         switch self {
         case .High: return .GreenDull
         case .Low: return .RedDull
-        case .veryHigh: return .GREEN
-        case .veryLow: return .RED
         case .normal: return .background
         }
     }
@@ -46,58 +41,22 @@ enum StockLevel {
 
 
 struct MoneyData {
-    let first: String
+    let first: Float
     let second: Int
     var third: Int?
     var level: StockLevel = .normal
     
     func labelAttributes() -> (asText: String,ranges: [NSRange],isLast: Bool) {
         
-        let firstRange = NSMakeRange(0,first.count)
-        let secondRange = NSMakeRange(first.count,second.text.count)
-        let amount = first + second.text
+        let firstRange = NSMakeRange(0,first.text.count)
+        let secondRange = NSMakeRange(first.text.count,second.text.count)
+        let amount = first.text + second.text
         
         guard let last = third else { return (amount,[firstRange,secondRange],false) }
-        let thirdrange = NSMakeRange(first.count+second.text.count, last.text.count)
+        let thirdrange = NSMakeRange(first.text.count+second.text.count, last.text.count)
         return (amount + last.text,[firstRange,secondRange,thirdrange],true)
     }
-}
-
-enum APPColor {
     
-    case RED
-    case GREEN
-    case RedDull
-    case GreenDull
-    
-    case headerBG
-    case headerBorder
-    case HeaderLabel
-
-    case background
-    case Label
-    
-    func color() -> UIColor{
-        
-        switch self {
-        
-        case .RED: return UIColor(red: 184/255, green: 32/255, blue: 32/255, alpha: 255)
-        case .GREEN: return UIColor(red: 40/255, green: 160/255, blue: 40/255, alpha: 255)
-            
-        case .RedDull: return UIColor(red: 102/255, green: 33/255, blue: 33/255, alpha: 255)
-        case .GreenDull: return UIColor(red: 34/255, green: 57/255, blue: 36/255, alpha: 255)
-
-            
-        case .headerBG: return UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 255)
-        case .headerBorder: return .orange
-        case .HeaderLabel: return .lightGray
-
-
-        case .background: return UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 255)
-        case .Label: return .white
-
-        }
-    }
 }
 
 
@@ -140,11 +99,20 @@ enum ExcahngeCurrency: String {
     }
 }
 
+
+protocol ExchangeListViewModeldelegate: AnyObject {
+    func reloadView()
+}
+
 class ExchangeListViewModel {
     
     // MARK: - Properties
-    var exchangeValues: [ExchangeData] = [ExchangeData(isHeader: true,
-                                                       currency: nil, bidValue: nil, askValue: nil)]
+    weak var delegate: ExchangeListViewModeldelegate?
+    var exchangeValuesPrevious: [ExchangeData] = []
+    var exchangeValues: [ExchangeData] = []
+    let currencies: [ExcahngeCurrency] = [.EURUSD,.XAGUSD,.GBPUSD,.USDJPY,
+                                            .LTCUSD,.ETHUSD,.EURAUD,.EURCHF,
+                                          .EURGBP,.EURJPY,.GBPAUD]
     
     init() {
         addInitialVAlues()
@@ -153,40 +121,91 @@ class ExchangeListViewModel {
     private func addInitialVAlues(){
         
         
-        let currencies: [ExcahngeCurrency] = [.EURUSD,.XAGUSD,.GBPUSD,.USDJPY,
-                                                .LTCUSD,.ETHUSD,.EURAUD,.EURCHF,
-                                              .EURGBP,.EURJPY,.GBPAUD]
-        
-        let bidValues: [MoneyData] = [MoneyData(first: "1.16", second: 25, third: 8),
-                                      MoneyData(first: "22.", second: 75),
-                                      MoneyData(first: "1.27", second: 90, third: 0, level: .Low),
-                                      MoneyData(first: "105.", second: 37, third: 6, level: .Low),
-                                      MoneyData(first: "46.", second: 32),
-                                      MoneyData(first: "357.", second: 54, level: .veryLow),
-                                      MoneyData(first: "1.64", second: 99, third: 8),
-                                      MoneyData(first: "1.07", second: 98, third: 6, level: .Low),
-                                      MoneyData(first: "0.90", second: 89, third: 7, level: .High),
-                                      MoneyData(first: "122.", second: 54, third: 1, level: .High),
-                                      MoneyData(first: " 1.81", second: 51, third: 9)]
 
-        let askValues: [MoneyData] = [MoneyData(first: "1.16", second: 29, third: 8),
-                                      MoneyData(first: "22.", second: 77),
-                                      MoneyData(first: "1.27", second: 93, third: 0, level: .High),
-                                      MoneyData(first: "105.", second: 40, third: 0, level: .High),
-                                      MoneyData(first: "46.", second: 33),
-                                      MoneyData(first: "357.", second: 59, level: .veryLow),
-                                      MoneyData(first: "1.65", second: 02, third: 6),
-                                      MoneyData(first: "1.08", second: 02, third: 0, level: .veryHigh),
-                                      MoneyData(first: "0.90", second: 91, third: 0, level: .Low),
-                                      MoneyData(first: "122.", second: 54, third: 5, level: .Low),
-                                      MoneyData(first: "1.81", second: 53, third: 3)]
+        
+        let bidValues: [MoneyData] = [MoneyData(first: 1.16, second: 25, third: 8),
+                                      MoneyData(first: 22, second: 75),
+                                      MoneyData(first: 1.27, second: 90, third: 0, level: .Low),
+                                      MoneyData(first: 105, second: 37, third: 6, level: .Low),
+                                      MoneyData(first: 46, second: 32),
+                                      MoneyData(first: 357, second: 54, level: .Low),
+                                      MoneyData(first: 1.64, second: 99, third: 8),
+                                      MoneyData(first: 1.07, second: 98, third: 6, level: .Low),
+                                      MoneyData(first: 0.90, second: 89, third: 7, level: .High),
+                                      MoneyData(first: 122, second: 54, third: 1, level: .High),
+                                      MoneyData(first: 1.81, second: 51, third: 9)]
+
+        let askValues: [MoneyData] = [MoneyData(first: 1.16, second: 29, third: 8),
+                                      MoneyData(first: 22, second: 77),
+                                      MoneyData(first: 1.27, second: 93, third: 0, level: .High),
+                                      MoneyData(first: 105, second: 40, third: 0, level: .High),
+                                      MoneyData(first: 46, second: 33),
+                                      MoneyData(first: 357, second: 59, level: .Low),
+                                      MoneyData(first: 1.65, second: 02, third: 6),
+                                      MoneyData(first: 1.08, second: 02, third: 0, level: .High),
+                                      MoneyData(first: 0.90, second: 91, third: 0, level: .Low),
+                                      MoneyData(first: 122, second: 54, third: 5, level: .Low),
+                                      MoneyData(first: 1.81, second: 53, third: 3)]
         
         
-        for index in 0...10 {
-            exchangeValues.append(ExchangeData(currency: currencies[index],
+        exchangeValues.append(ExchangeData(isHeader: true,currency: nil, bidValue: nil, askValue: nil))
+        
+        for index in 1...10 {
+            exchangeValues.append(ExchangeData(currency: currencies[index-1],
                                                bidValue: bidValues[index],
                                                askValue: askValues[index]))
             
         }
+        exchangeValuesPrevious = exchangeValues
+        
+    }
+    
+    func generateSecondValues(){
+
+        exchangeValues.removeAll()
+        var newValues:[ExchangeData] = []
+        newValues.append(ExchangeData(isHeader: true,currency: nil, bidValue: nil, askValue: nil))
+
+        for index in 1...10 {
+            
+            if Bool.random() {
+                
+                var same = exchangeValuesPrevious[index]
+                same.bidValue.level = .normal
+                same.askValue.level = .normal
+                newValues.append(same)
+                continue
+            }
+            
+            let randomBidIntSecond = Int.random(in: 0...99)
+            let randomBidFloatFirst = round(Float.random(in: 1.01...99.99 * 100) / 100.0)
+            let randomBidIntThird = Int.random(in: 0...9)
+
+            
+            let randomAskIntSecond = Int.random(in: 0...99)
+            let randomAskFloafFirst = round(Float.random(in: 1.01...99.99 * 100) / 100.0)
+            let randomAskIntThird = Int.random(in: 0...9)
+            
+            
+            var newBid = MoneyData(first: randomBidFloatFirst, second: randomBidIntSecond, third: Bool.random() ? randomBidIntThird : nil)
+
+            var newAsk = MoneyData(first: randomAskFloafFirst, second: randomAskIntSecond, third: Bool.random() ? randomAskIntThird : nil)
+
+
+            newBid.level = newBid.first > exchangeValuesPrevious[index].bidValue.first ? .High : .Low
+            newAsk.level = newAsk.first > exchangeValuesPrevious[index].askValue.first ? .High : .Low
+
+            let newexchangeData = ExchangeData(currency: currencies[index-1],
+                                               bidValue: newBid,
+                                               askValue: newAsk)
+            
+            newValues.append(newexchangeData)
+            
+        }
+        
+        
+        exchangeValues = newValues
+        exchangeValuesPrevious = exchangeValues
+        delegate?.reloadView()
     }
 }

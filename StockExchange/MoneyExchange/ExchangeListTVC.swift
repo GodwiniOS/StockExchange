@@ -145,8 +145,6 @@ class MovieTableViewCell: UITableViewCell {
             bidLabel.backgroundColor = value.bidValue.level.asColor().color()
             askLabel.backgroundColor = value.askValue.level.asColor().color()
 
-            
-
             return
         }
 

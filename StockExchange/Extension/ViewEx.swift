@@ -105,7 +105,6 @@ extension UITableView {
 
     func registerCell() {
         self.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableViewCell")
-//        self.register(CollapsibleTableViewCell.self, forCellReuseIdentifier: "CollapsibleTableViewCell")
     }
 }
 
@@ -131,9 +130,6 @@ extension UILabel{
         
         let labelAttributes =  money.labelAttributes()
         
-//        let paragraph = NSMutableParagraphStyle()
-//        paragraph.alignment = .center
-        
         let amountText = NSMutableAttributedString.init(string: labelAttributes.asText)
         
         
@@ -149,14 +145,6 @@ extension UILabel{
             amountText.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)],
                                      range: labelAttributes.ranges[2])
         }
-        
-
-        
-        
-        // if you want, you can add more attributes for different ranges calling .setAttributes many times
-
-        // set the attributed string to the UILabel object
-        
         attributedText = amountText
     }
 }
@@ -168,9 +156,19 @@ extension Int {
     }
 }
 
-extension Double {
+extension Float {
+    
     var text : String {
-        return "\(self)"
+        
+        
+        var asText = "\(self)"
+        
+        
+        while asText.contains("."),let last = asText.last,last == "0" {
+            asText = String(asText.dropLast())
+        }
+        
+        return asText.contains(".") ?  asText : (asText + ".")
     }
 }
 
@@ -182,23 +180,39 @@ enum FontSize: CGFloat {
     case subtite = 22
 }
 
+enum APPColor {
+    
+    case RED
+    case GREEN
+    case RedDull
+    case GreenDull
+    
+    case headerBG
+    case headerBorder
+    case HeaderLabel
 
-//enum ViewControllerType: String {
-//    case upcoming
-//    case top_rated
-//
-//    var title: String {
-//        switch self {
-//        case .upcoming: return "Upcoming Movies"
-//        case .top_rated: return "Top Rated Movies"
-//        }
-//    }
-//}
+    case background
+    case Label
+    
+    func color() -> UIColor{
+        
+        switch self {
+        
+        case .RED: return UIColor(red: 184/255, green: 32/255, blue: 32/255, alpha: 255)
+        case .GREEN: return UIColor(red: 40/255, green: 160/255, blue: 40/255, alpha: 255)
+            
+        case .RedDull: return UIColor(red: 102/255, green: 33/255, blue: 33/255, alpha: 255)
+        case .GreenDull: return UIColor(red: 34/255, green: 57/255, blue: 36/255, alpha: 255)
 
-//var viewControllerType : ViewControllerType? = nil
+            
+        case .headerBG: return UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 255)
+        case .headerBorder: return .orange
+        case .HeaderLabel: return .lightGray
 
-//enum AppTitle: String {
-//
-//    case topRatedMovieTitle    = "Top Rated Movies"
-//    case upComingMovieTitle    = "Upcoming Movies"
-//}
+
+        case .background: return UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 255)
+        case .Label: return .white
+
+        }
+    }
+}
