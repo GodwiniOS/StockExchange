@@ -7,64 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A334789A-E2ED-41BF-BABF-4269B1D97EE6"
-            shouldBeEnabled = "Yes"
+            uuid = "4ED168CD-3C14-4EF9-A8C9-9A74C2E95E31"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "StockExchange/MoneyExchange/ExchangeListVM.swift"
+            filePath = "StockExchange/Chart/ChartVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "generateSecondValues()"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "prepareCandles(candles:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1EBA9DE2-7318-43AD-86F9-FC82E7C566D7"
+            uuid = "2F9D193A-9018-4E52-B2BF-A288046C2322"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "StockExchange/MoneyExchange/ExchangeListVM.swift"
+            filePath = "StockExchange/Chart/ChartVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "generateSecondValues()"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "fireTimer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E72A104D-9851-4FC2-A209-9040105652B8"
+            uuid = "12207FAA-2346-4C11-99C8-D78605E4584E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "StockExchange/MoneyExchange/ExchangeListVM.swift"
+            filePath = "StockExchange/Chart/ChartVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "generateSecondValues()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4C15CA8B-DF57-4D2D-80B6-C90CEEEFA71C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StockExchange/MoneyExchange/ExchangeListVM.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "generateSecondValues()"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "prepareView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -40,7 +40,7 @@ class ExchangeListVC: UIViewController {
 
 
         
-        let timer = Timer.scheduledTimer(timeInterval: 5, target: self,
+        _ = Timer.scheduledTimer(timeInterval: 5, target: self,
                                          selector: #selector(fireTimer), userInfo: nil, repeats: true)
         
         
