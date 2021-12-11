@@ -46,14 +46,16 @@ class ChartVC: UIViewController {
         chartView.backgroundColor = .black
         chartView.prepare()
         
-//        _ = Timer.scheduledTimer(timeInterval: 2, target: self,
-//                                         selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 2, target: self,
+                                         selector: #selector(fireTimer), userInfo: nil, repeats: true)
     }
-    
-//    @objc func fireTimer() {
-//
-//        chartView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-//        viewModel.generateNew()
-//        chartView.prepareCandles(candles: viewModel.candles)
-//    }
+
+    @objc func fireTimer() {
+
+        chartView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        chartView.prepare()
+
+        viewModel.generateNew()
+        chartView.prepareCandles(candles: viewModel.candles)
+    }
 }

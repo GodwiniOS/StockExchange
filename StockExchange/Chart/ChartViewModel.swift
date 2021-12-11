@@ -30,20 +30,17 @@ class ChartViewModel {
     }
     
     
-//    func generateNew() {
-//
-//
-//        for index in 0..<200 {
-//            candles[index].changePosition(candles[index+1].position)
-//        }
-//
-//        let newCandle = candles.last!.nextPosition(200)
-//        candles.removeLast()
-//
-//        candles.append(CandleViewModel(height: newCandle.height,
-//                                       position: newCandle.position,
-//                                       level: newCandle.stock))
-//    }
+    func generateNew() {
+
+
+        candles.removeFirst()
+        let newCandle = candles[198].nextCandle(199)
+        candles.append(newCandle)
+        
+        for index in 0..<200 {
+            candles[index].position.x = Float(index) * 1.5
+        }
+    }
 }
 
 
@@ -51,50 +48,6 @@ struct CandlePosition{
     var x: Float
     var y: Float
 }
-
-//struct CandleViewModel {
-//
-//
-//    var height: Float
-//    let width: Float = 1
-//    let space: Float = 2.5
-//    var position: CandlePosition
-//    var level: StockLevel = .Low
-//
-//
-//
-//    func nextPosition(_ index: Int) -> (position: CandlePosition,stock: StockLevel,height: Float) {
-//
-//        var newPosition:CandlePosition?
-//        var stock:StockLevel?
-//        var validation = false
-//        var stockValue: Float?
-//
-//        while !validation  {
-//
-//            let randomValue = Float().chartRandom
-//
-//            let x = Float(index) * space
-//            let y = Bool.random() ? position.y - randomValue : position.y + randomValue
-//
-//            stockValue = randomValue
-//            newPosition = CandlePosition(x: x, y: y)
-//            stock =  .Low //randomValue > 20 ? .High : .Low
-//            validation = y > 10 && (newPosition!.y + randomValue) < 210
-//        }
-//
-//        return (newPosition!,stock!,stockValue!)
-//    }
-//
-//
-//    mutating func changePosition(_ newPosition: CandlePosition){
-//        position.x = newPosition.x
-//    }
-//
-//    func newValueGenerate(){
-//
-//    }
-//}
 
 
 
@@ -146,7 +99,7 @@ class CandleViewModel {
             let newLevel: StockLevel = Bool.random() ? .Low : .High
 //            let newClose = newLevel == .High ? newOpen + Int(random) : newOpen - Int(random)
             
-            let newClose = newLevel == .High ? newOpen + Int(random/3.8) : newOpen - Int(random/3.8)
+            let newClose = newLevel == .High ? newOpen + Int(random/5) : newOpen - Int(random/5)
 
             let newHigh = newLevel == .High ? newClose + 5 : newOpen + 5
             let newLow = newLevel == .High ? newClose - 5 : newOpen - 5
