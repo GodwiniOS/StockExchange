@@ -67,5 +67,12 @@ extension ExchangeListVC: UITableViewDelegate,UITableViewDataSource {
         return exchangeTVC
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = ChartVC()
+        vc.title = exchangeListVM.exchangeValues[indexPath.row].currency.rawValue + " Minutes"
+        vc.currency = (exchangeListVM.exchangeValues[indexPath.row].askValue.first,exchangeListVM.exchangeValues[indexPath.row].askValue.second)
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
 }

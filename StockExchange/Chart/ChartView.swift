@@ -22,7 +22,7 @@ class StockChartView: UIView {
     
     
     // MARK: - Methods
-    func prepare() {
+    func prepare(initialValue: Int,decimal: Int) {
         let line1: CALayer = {
             let layer = CALayer()
             layer.backgroundColor = UIColor.gray.cgColor
@@ -77,13 +77,14 @@ class StockChartView: UIView {
         }
         
         
-        prepreTextLayer()
+        prepreTextLayer(initialValue: initialValue, decimal: decimal)
         prepredashVer()
     }
     
     func prepredashVer(){
         
-        for i in 1..<4 {
+        
+        for i in 1..<5 {
             
             let dashLayer = CAShapeLayer()
             dashLayer.strokeColor = UIColor.gray.cgColor
@@ -95,11 +96,31 @@ class StockChartView: UIView {
         dashLayer.path = path
         layer.addSublayer(dashLayer)
             
+            let textlayer = CATextLayer()
+
+            textlayer.frame = CGRect(x: (i * 75) - 18 , y: 220, width: 100, height: 40)
+            textlayer.fontSize = 12
+            textlayer.alignmentMode = .left
+            
+            
+            let date = Date()
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date).text
+            let minutes = Int(calendar.component(.minute, from: date)) - (4-i)
+            let sec = calendar.component(.minute, from: date).text
+
+            textlayer.string =  hour + ":" +  minutes.text  + ":" + sec
+            
+            textlayer.isWrapped = true
+            textlayer.truncationMode = .end
+            textlayer.foregroundColor = UIColor.white.cgColor
+
+            layer.addSublayer(textlayer)
         }
     }
     
     
-    func prepreTextLayer(){
+    func prepreTextLayer(initialValue: Int,decimal: Int){
         
 
         for i in 0..<6 {
@@ -109,7 +130,7 @@ class StockChartView: UIView {
             textlayer.frame = CGRect(x: 305 , y: 22 + (i * 30), width: 100, height: 40)
             textlayer.fontSize = 12
             textlayer.alignmentMode = .left
-            textlayer.string = "fjfifdkmfkdj"
+            textlayer.string = "\(initialValue).\(decimal)\(90 - (i * 15))"
             textlayer.isWrapped = true
             textlayer.truncationMode = .end
             textlayer.foregroundColor = UIColor.white.cgColor
