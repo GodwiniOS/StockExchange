@@ -10,6 +10,7 @@ import Foundation
 class ChartViewModel {
     
     var candles: [CandleViewModel] = []
+    var timeLines: [TimeLineViewModel] = []
 
     init(){ initialValuesGenerator() }
     
@@ -27,6 +28,19 @@ class ChartViewModel {
             candles.append(newCandle)
         }
         
+        
+        
+        for i in 1..<5 {
+            
+            let timeLine = TimeLineViewModel(startPosition: Position(x: Float(i * 75), y: 0),
+                                             endPosition: Position(x: Float(i * 75), y: 210),
+                                             textPosition: Position(x: Float((i * 75) - 18), y: 220))
+            timeLines.append(timeLine)
+
+        }
+    
+        
+        
     }
     
     
@@ -40,15 +54,52 @@ class ChartViewModel {
         for index in 0..<200 {
             candles[index].position.x = Float(index) * 1.5
         }
+        
+
+        var addNew = false
+        for index in 0..<timeLines.count {
+            
+            let newX = timeLines[index].endPosition.x - 1.5
+
+            if newX < 0 {
+                addNew = true
+            }
+            
+            timeLines[index].startPosition.x = newX
+            timeLines[index].endPosition.x = newX
+            timeLines[index].textPosition.x = newX - 18
+        }
+        
+        if addNew {
+            
+            timeLines.removeFirst()
+            timeLines.append(TimeLineViewModel(startPosition: Position(x: 300, y: 0),
+                                               endPosition: Position(x: 300, y: 210),
+                                               textPosition: Position(x: 300-18, y: 220)))
+        }
+
+        
+        
+
+        
+        
+        
+        
+        
     }
 }
 
 
-struct CandlePosition{
+struct Position {
     var x: Float
     var y: Float
 }
 
+struct TimeLineViewModel {
+    var startPosition: Position
+    var endPosition: Position
+    var textPosition: Position
+}
 
 
 class CandleViewModel {
@@ -62,7 +113,7 @@ class CandleViewModel {
     var height: Int
     let width: Int = 1
     let space: Float = 0.5
-    var position: CandlePosition
+    var position: Position
     var level: StockLevel = .Low
     
     
@@ -72,11 +123,11 @@ class CandleViewModel {
         self.open = open
         self.close = close
         height = high - low
-        position = CandlePosition(x: 0, y: 30)
+        position = Position(x: 0, y: 30)
         }
     
     
-    init(high: Int, low: Int, open: Int, close: Int,height: Int,position: CandlePosition,level: StockLevel){
+    init(high: Int, low: Int, open: Int, close: Int,height: Int,position: Position,level: StockLevel){
         self.high = high
         self.low = low
         self.open = open
@@ -104,7 +155,7 @@ class CandleViewModel {
             let newHigh = newLevel == .High ? newClose + 5 : newOpen + 5
             let newLow = newLevel == .High ? newClose - 5 : newOpen - 5
             let newHeight = high - low
-            let newPosition = CandlePosition(x: Float(index) * 1.5, y: Float(210 - newHigh))
+            let newPosition = Position(x: Float(index) * 1.5, y: Float(210 - newHigh))
             
             validation = newPosition.y > 15 && newPosition.y < 190
             newCandleViewModel = CandleViewModel(high: newHigh, low: newLow, open: newOpen, close: newClose, height: newHeight, position: newPosition, level: newLevel)

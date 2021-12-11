@@ -22,7 +22,7 @@ class StockChartView: UIView {
     
     
     // MARK: - Methods
-    func prepare(initialValue: Int,decimal: Int) {
+    func prepare() {
         let line1: CALayer = {
             let layer = CALayer()
             layer.backgroundColor = UIColor.gray.cgColor
@@ -77,14 +77,13 @@ class StockChartView: UIView {
         }
         
         
-        prepreTextLayer(initialValue: initialValue, decimal: decimal)
-        prepredashVer()
+
     }
     
-    func prepredashVer(){
+    func prepredashVer(timelines: [TimeLineViewModel]){
         
-        
-        for i in 1..<5 {
+        var i = 0
+        for timline in timelines {
             
             let dashLayer = CAShapeLayer()
             dashLayer.strokeColor = UIColor.gray.cgColor
@@ -92,13 +91,27 @@ class StockChartView: UIView {
             dashLayer.lineDashPattern = [7, 3]
 
         let path = CGMutablePath()
-        path.addLines(between: [CGPoint(x: i * 75, y: 0), CGPoint(x: i * 75, y: 210)])
+            
+            
+            path.addLines(between: [
+                CGPoint(x: CGFloat(timline.startPosition.x),y:  CGFloat(timline.startPosition.y)),
+                CGPoint(x: CGFloat(timline.endPosition.x), y: CGFloat(timline.endPosition.y))
+            ])
+            
+                          
+                          
+                          
+                          
         dashLayer.path = path
         layer.addSublayer(dashLayer)
             
             let textlayer = CATextLayer()
 
             textlayer.frame = CGRect(x: (i * 75) - 18 , y: 220, width: 100, height: 40)
+            
+            textlayer.frame = CGRect(x: CGFloat(timline.textPosition.x), y: CGFloat(timline.textPosition.y),
+                                     width: 100, height: 40)
+            
             textlayer.fontSize = 12
             textlayer.alignmentMode = .left
             
@@ -107,6 +120,7 @@ class StockChartView: UIView {
             let calendar = Calendar.current
             let hour = calendar.component(.hour, from: date).text
             let minutes = Int(calendar.component(.minute, from: date)) - (4-i)
+            i = i + 1
             let sec = calendar.component(.minute, from: date).text
 
             textlayer.string =  hour + ":" +  minutes.text  + ":" + sec
@@ -141,7 +155,11 @@ class StockChartView: UIView {
     
     
     
-    
+    func prepareTimeline(timelines: [TimeLineViewModel],initialValue: Int,decimal: Int){
+        prepare()
+        prepreTextLayer(initialValue: initialValue, decimal: decimal)
+        prepredashVer(timelines: timelines)
+    }
 
     func prepareCandles(candles: [CandleViewModel]) {
         

@@ -15,7 +15,7 @@ class ChartVC: UIViewController {
     var chartView: StockChartView!
     var viewModel = ChartViewModel()
 
-    var currency:(first:Float,second:Int)!
+    var currency:(first:Float,second:Int)?
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -44,9 +44,13 @@ class ChartVC: UIViewController {
         chartView.prepareLayout(.leading)
         chartView.prepareLayout(.top,constant: 100)
         chartView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        let first:Int = Int(currency?.first ?? 1)
+        let second:Int = Int(currency?.second ?? 56)
+        chartView.prepareTimeline(timelines: viewModel.timeLines, initialValue: first,
+                                  decimal: second)
         chartView.prepareCandles(candles: viewModel.candles)
+
         chartView.backgroundColor = .black
-        chartView.prepare(initialValue: Int(currency.first), decimal: currency.second)
         
         _ = Timer.scheduledTimer(timeInterval: 2, target: self,
                                          selector: #selector(fireTimer), userInfo: nil, repeats: true)
@@ -55,9 +59,13 @@ class ChartVC: UIViewController {
     @objc func fireTimer() {
 
         chartView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-        chartView.prepare(initialValue: Int(currency.first), decimal: currency.second)
+        
 
         viewModel.generateNew()
+        let first:Int = Int(currency?.first ?? 1)
+        let second:Int = Int(currency?.second ?? 56)
+        chartView.prepareTimeline(timelines: viewModel.timeLines, initialValue: first,
+                                  decimal: second)
         chartView.prepareCandles(candles: viewModel.candles)
     }
 }
