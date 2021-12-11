@@ -12,6 +12,8 @@ class ChartViewModel {
     var candles: [CandleViewModel] = []
     var timeLines: [TimeLineViewModel] = []
 
+    var currentStock:(start: Position,end: Position)!
+    
     init(){ initialValuesGenerator() }
     
     // MARK: - Methods
@@ -77,15 +79,6 @@ class ChartViewModel {
                                                endPosition: Position(x: 300, y: 210),
                                                textPosition: Position(x: 300-18, y: 220)))
         }
-
-        
-        
-
-        
-        
-        
-        
-        
     }
 }
 

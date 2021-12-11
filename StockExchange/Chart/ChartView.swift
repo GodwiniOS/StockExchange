@@ -155,10 +155,39 @@ class StockChartView: UIView {
     
     
     
-    func prepareTimeline(timelines: [TimeLineViewModel],initialValue: Int,decimal: Int){
+    func prepareTimeline(timelines: [TimeLineViewModel],initialValue: Int,decimal: Int,value: Int?){
         prepare()
         prepreTextLayer(initialValue: initialValue, decimal: decimal)
         prepredashVer(timelines: timelines)
+        if value != nil {
+            prepareCurrentLine(value: value!,initialValue: initialValue, decimal: decimal)
+        }
+    }
+    
+    func prepareCurrentLine(value: Int,initialValue: Int, decimal: Int){
+        
+        
+        let line: CALayer = {
+            let layer = CALayer()
+            layer.backgroundColor = UIColor.orange.cgColor
+            return layer
+        }()
+
+        line.frame = CGRect(x: 0, y: 210 - value, width: 300,height: 1)
+        layer.addSublayer(line)
+        
+        
+        let textlayer = CATextLayer()
+
+        textlayer.frame = CGRect(x: 310, y: 210 - value, width: 100, height: 40)
+        textlayer.fontSize = 8
+        textlayer.alignmentMode = .left
+        textlayer.string = "\(initialValue).\(decimal)\(value)"
+        textlayer.isWrapped = true
+        textlayer.truncationMode = .end
+        textlayer.foregroundColor = UIColor.orange.cgColor
+
+        layer.addSublayer(textlayer)
     }
 
     func prepareCandles(candles: [CandleViewModel]) {

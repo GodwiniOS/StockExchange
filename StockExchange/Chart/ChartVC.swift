@@ -47,7 +47,7 @@ class ChartVC: UIViewController {
         let first:Int = Int(currency?.first ?? 1)
         let second:Int = Int(currency?.second ?? 56)
         chartView.prepareTimeline(timelines: viewModel.timeLines, initialValue: first,
-                                  decimal: second)
+                                  decimal: second, value: nil)
         chartView.prepareCandles(candles: viewModel.candles)
 
         chartView.backgroundColor = .black
@@ -65,7 +65,7 @@ class ChartVC: UIViewController {
         let first:Int = Int(currency?.first ?? 1)
         let second:Int = Int(currency?.second ?? 56)
         chartView.prepareTimeline(timelines: viewModel.timeLines, initialValue: first,
-                                  decimal: second)
+                                  decimal: second, value: viewModel.candles.last!.open)
         chartView.prepareCandles(candles: viewModel.candles)
     }
 }
