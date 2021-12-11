@@ -17,6 +17,9 @@
 		5A6AADE0276287B90063E340 /* ExchangeListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6AADDF276287B90063E340 /* ExchangeListTVC.swift */; };
 		5A6AADE3276288340063E340 /* ViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6AADE2276288340063E340 /* ViewEx.swift */; };
 		5AD3D82E27633CFB00E5D902 /* ChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD3D82D27633CFB00E5D902 /* ChartVC.swift */; };
+		5AD3D8302763D86C00E5D902 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD3D82F2763D86C00E5D902 /* ChartViewModel.swift */; };
+		5AD3D8322763D8F400E5D902 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD3D8312763D8F400E5D902 /* ChartView.swift */; };
+		5AD3D8342763D92E00E5D902 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD3D8332763D92E00E5D902 /* Enum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		5A6AADDF276287B90063E340 /* ExchangeListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeListTVC.swift; sourceTree = "<group>"; };
 		5A6AADE2276288340063E340 /* ViewEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEx.swift; sourceTree = "<group>"; };
 		5AD3D82D27633CFB00E5D902 /* ChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartVC.swift; sourceTree = "<group>"; };
+		5AD3D82F2763D86C00E5D902 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
+		5AD3D8312763D8F400E5D902 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		5AD3D8332763D92E00E5D902 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,13 +70,12 @@
 		5A6AADC62762811D0063E340 /* StockExchange */ = {
 			isa = PBXGroup;
 			children = (
+				5A6AADDE276286960063E340 /* MoneyExchange */,
 				5AD3D82C27633B1200E5D902 /* Chart */,
 				5A6AADE1276288160063E340 /* Extension */,
 				5A6AADDB276285FC0063E340 /* Delegate */,
-				5A6AADDE276286960063E340 /* MoneyExchange */,
-				5A6AADCD2762811D0063E340 /* Main.storyboard */,
+				5AD3D8352763E3C300E5D902 /* Storyboard */,
 				5A6AADD02762811F0063E340 /* Assets.xcassets */,
-				5A6AADD22762811F0063E340 /* LaunchScreen.storyboard */,
 				5A6AADD52762811F0063E340 /* Info.plist */,
 			);
 			path = StockExchange;
@@ -79,8 +84,8 @@
 		5A6AADDB276285FC0063E340 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
-				5A6AADC92762811D0063E340 /* SceneDelegate.swift */,
 				5A6AADC72762811D0063E340 /* AppDelegate.swift */,
+				5A6AADC92762811D0063E340 /* SceneDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -98,6 +103,7 @@
 		5A6AADE1276288160063E340 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				5AD3D8332763D92E00E5D902 /* Enum.swift */,
 				5A6AADE2276288340063E340 /* ViewEx.swift */,
 			);
 			path = Extension;
@@ -107,8 +113,19 @@
 			isa = PBXGroup;
 			children = (
 				5AD3D82D27633CFB00E5D902 /* ChartVC.swift */,
+				5AD3D8312763D8F400E5D902 /* ChartView.swift */,
+				5AD3D82F2763D86C00E5D902 /* ChartViewModel.swift */,
 			);
 			path = Chart;
+			sourceTree = "<group>";
+		};
+		5AD3D8352763E3C300E5D902 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				5A6AADCD2762811D0063E340 /* Main.storyboard */,
+				5A6AADD22762811F0063E340 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,8 +202,11 @@
 				5A6AADE0276287B90063E340 /* ExchangeListTVC.swift in Sources */,
 				5A6AADCC2762811D0063E340 /* ExchangeListVC.swift in Sources */,
 				5A6AADDD276286540063E340 /* ExchangeListVM.swift in Sources */,
+				5AD3D8342763D92E00E5D902 /* Enum.swift in Sources */,
 				5AD3D82E27633CFB00E5D902 /* ChartVC.swift in Sources */,
 				5A6AADC82762811D0063E340 /* AppDelegate.swift in Sources */,
+				5AD3D8322763D8F400E5D902 /* ChartView.swift in Sources */,
+				5AD3D8302763D86C00E5D902 /* ChartViewModel.swift in Sources */,
 				5A6AADCA2762811D0063E340 /* SceneDelegate.swift in Sources */,
 				5A6AADE3276288340063E340 /* ViewEx.swift in Sources */,
 			);

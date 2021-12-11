@@ -10,42 +10,22 @@ import Foundation
 
 struct ExchangeData {
     
+    // MARK: - Properties
     var isHeader = false
     let currency: ExcahngeCurrency!
     var bidValue: MoneyData!
     var askValue: MoneyData!
 }
 
-
-enum APPIMAGE: String {
-    
-    case currencyC = "currencyC"
-    case currencyM = "currencyM"
-    case symbol = "symbol"
-}
-
-enum StockLevel {
-    
-    case High
-    case Low
-    case normal
-
-    func asColor() -> APPColor {
-        switch self {
-        case .High: return .GreenDull
-        case .Low: return .RedDull
-        case .normal: return .background
-        }
-    }
-}
-
-
 struct MoneyData {
+    
+    // MARK: - Properties
     let first: Float
     let second: Int
     var third: Int?
     var level: StockLevel = .normal
     
+    // MARK: - Methods
     func labelAttributes() -> (asText: String,ranges: [NSRange],isLast: Bool) {
         
         let firstRange = NSMakeRange(0,first.text.count)
@@ -60,49 +40,10 @@ struct MoneyData {
 }
 
 
-enum ExcahngeSymbol {
-    case C
-    case M
-    case symbol
-
-    func name() -> APPIMAGE{
-        switch self {
-        case .C: return .currencyC
-        case .M: return .currencyM
-        case .symbol: return .symbol
-
-        }
-    }
-}
-
-
-enum ExcahngeCurrency: String {
-    
-    case EURUSD
-    case XAGUSD
-    case GBPUSD
-    case USDJPY
-    case LTCUSD
-    case ETHUSD
-    case EURAUD
-    case EURCHF
-    case EURGBP
-    case EURJPY
-    case GBPAUD
-    
-    func symbol() -> ExcahngeSymbol{
-        return self == ExcahngeCurrency.XAGUSD ? .C : .M
-    }
-    
-    func asText() -> String{
-        return self.rawValue
-    }
-}
-
-
 protocol ExchangeListViewModeldelegate: AnyObject {
     func reloadView()
 }
+
 
 class ExchangeListViewModel {
     
@@ -118,6 +59,7 @@ class ExchangeListViewModel {
         addInitialVAlues()
     }
     
+    // MARK: - Methods
     private func addInitialVAlues(){
         
         

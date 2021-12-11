@@ -7,8 +7,10 @@
 
 import UIKit
 
+
 class MovieTableViewCell: UITableViewCell {
 
+    // MARK: - Properties
     let backGroundView = UIView()
     let topLineView = UIView()
     let bottomLineView = UIView()
@@ -19,11 +21,10 @@ class MovieTableViewCell: UITableViewCell {
     let askLabel = UILabel()
     
     let currencySymbolView = UIImageView()
-    
-    
     let screenWidth = UIScreen.main.bounds.width
     
     
+    // MARK: - Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         prepareTableViewCell()
@@ -33,37 +34,32 @@ class MovieTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Methods
     func prepareTableViewCell() {
-        
 
         // prepare Background
-        backgroundColor = .clear
+        backgroundColor = .black
         selectionStyle = .none
-        contentView.backgroundColor = .clear
-        contentView.superview?.backgroundColor = .clear
+        contentView.backgroundColor = .black
+        contentView.superview?.backgroundColor = .black
         contentView.prepareHeight(constant: 72)
         contentView.addSubview(backGroundView)
+        contentView.backgroundColor = .black
 
         backGroundView.prepareLayout(.leading)
         backGroundView.prepareLayout(.trailing)
         backGroundView.prepareLayout(.top)
         backGroundView.prepareLayout(.bottom)
         backGroundView.setBackgroundColor(.background)
-        
-
-
-
 
         // prepare completedButton
         backGroundView.addSubview(currencySymbolView)
         currencySymbolView.prepareLayout(.leading,constant: 10)
-        currencySymbolView.prepareLayout(.top,constant: 30)
+        currencySymbolView.prepareLayout(.top,constant: 26)
         currencySymbolView.prepareHeight(constant: 20)
         currencySymbolView.prepareWidth(constant: 20)
         currencySymbolView.setBackgroundColor(.HeaderLabel)
         currencySymbolView.contentMode = .scaleAspectFill
-
-        
 
         // prepare Title label
         backGroundView.addSubview(currencyLabel)
@@ -97,10 +93,7 @@ class MovieTableViewCell: UITableViewCell {
         askLabel.textColor = .white
         askLabel.prepareTextField(size: .subtite,textcolor: .white)
 
-//        askLabel.prepareTextField(size: .subtite)
         // prepare completedButton
-
-        
         backGroundView.addSubview(splitLineView)
         splitLineView.prepareLayout(.top)
         splitLineView.prepareLayout(.bottom)
@@ -121,15 +114,10 @@ class MovieTableViewCell: UITableViewCell {
         bottomLineView.prepareLayout(.bottom)
         bottomLineView.prepareHeight(constant: 1)
         bottomLineView.setBackgroundColor(.headerBorder)
-        
-
     }
     
     func prepareCell(_ value: ExchangeData){
         
-
-
-
         guard value.isHeader else {
 
             currencySymbolView.setImage(value.currency.symbol().name())

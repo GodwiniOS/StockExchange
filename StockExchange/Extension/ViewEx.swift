@@ -7,8 +7,95 @@
 
 import UIKit
 
+
+extension Int {
+    var text : String {
+        return "\(self)"
+    }
+}
+extension Float {
+    
+    var text : String {
+
+        var asText = "\(self)"
+        
+        while asText.contains("."),let last = asText.last,last == "0" {
+            asText = String(asText.dropLast())
+        }
+        
+        return asText.contains(".") ?  asText : (asText + ".")
+    }
+    
+    var chartRandom: Float {
+        return Float(Int.random(in: 10...60))
+    }
+}
+
+
+extension UIImageView {
+
+    func setImage(_ name: APPIMAGE) {
+        image = UIImage(named: name.rawValue)
+    }
+}
+
+
+
+extension UITableView {
+
+    func registerCell() {
+        self.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableViewCell")
+    }
+}
+
+
+extension UIViewController {
+    
+    // MARK: - To get the height of Navigation bar to assign title top spacing
+    func topbarHeight() -> CGFloat {
+        return view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0 + (navigationController?.navigationBar.frame.height ?? 0)
+    }
+}
+
+
+
+
+extension UILabel{
+    
+    func prepareTextField(size: FontSize,textcolor: UIColor = .black) {
+        font = font.withSize(size.rawValue)
+        textColor = textcolor
+    }
+    
+    
+    func prepareLabel(money: MoneyData) {
+        
+        
+        let labelAttributes =  money.labelAttributes()
+        
+        let amountText = NSMutableAttributedString.init(string: labelAttributes.asText)
+        
+        
+        
+        // set the custom font and color for the 0,1 range in string
+        amountText.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)],
+                                 range: labelAttributes.ranges[0])
+        
+        amountText.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30)],
+                                 range: labelAttributes.ranges[1])
+        
+        if labelAttributes.isLast {
+            amountText.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)],
+                                     range: labelAttributes.ranges[2])
+        }
+        attributedText = amountText
+    }
+}
+
+
 extension UIView {
     
+    // MARK: - Methods
     func prepareLayout(_ attribute: NSLayoutConstraint.Attribute,
                        toItem :UIView? = nil,
                        constant: CGFloat = 0) {
@@ -79,140 +166,23 @@ extension UIView {
         backgroundColor = color.color()
     }
     
-
+    func setBackgroundColorCurrency(_ level: StockLevel) {}
     
-    func setBackgroundColorCurrency(_ level: StockLevel) {
-        
-        
-
-        
-    }
-    
-}
-
-
-extension UIImageView {
-
-    func setImage(_ name: APPIMAGE) {
-        image = UIImage(named: name.rawValue)
-    }
-}
-
-
-
-
-extension UITableView {
-
-    func registerCell() {
-        self.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableViewCell")
-    }
-}
-
-
-
-extension UIViewController {
-    // MARK: - To get the height of Navigation bar to assign title top spacing
-    func topbarHeight() -> CGFloat {
-        return view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0 + (navigationController?.navigationBar.frame.height ?? 0)
-    }
-}
-
-extension UILabel{
-
-    func prepareTextField(size: FontSize,textcolor: UIColor = .black) {
-        font = font.withSize(size.rawValue)
-        textColor = textcolor
-    }
-    
-    
-    func prepareLabel(money: MoneyData) {
-        
-        
-        let labelAttributes =  money.labelAttributes()
-        
-        let amountText = NSMutableAttributedString.init(string: labelAttributes.asText)
-        
-        
-        
-        // set the custom font and color for the 0,1 range in string
-        amountText.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)],
-                                 range: labelAttributes.ranges[0])
-        
-        amountText.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40)],
-                                 range: labelAttributes.ranges[1])
-        
-        if labelAttributes.isLast {
-            amountText.setAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)],
-                                     range: labelAttributes.ranges[2])
-        }
-        attributedText = amountText
-    }
-}
-
-
-extension Int {
-    var text : String {
-        return "\(self)"
-    }
-}
-
-extension Float {
-    
-    var text : String {
-        
-        
-        var asText = "\(self)"
-        
-        
-        while asText.contains("."),let last = asText.last,last == "0" {
-            asText = String(asText.dropLast())
-        }
-        
-        return asText.contains(".") ?  asText : (asText + ".")
-    }
-}
-
-
-
-enum FontSize: CGFloat {
-    
-    case title = 26
-    case subtite = 22
-}
-
-enum APPColor {
-    
-    case RED
-    case GREEN
-    case RedDull
-    case GreenDull
-    
-    case headerBG
-    case headerBorder
-    case HeaderLabel
-
-    case background
-    case Label
-    
-    func color() -> UIColor{
-        
-        switch self {
-        
-        case .RED: return UIColor(red: 184/255, green: 32/255, blue: 32/255, alpha: 255)
-        case .GREEN: return UIColor(red: 40/255, green: 160/255, blue: 40/255, alpha: 255)
-            
-        case .RedDull: return UIColor(red: 102/255, green: 33/255, blue: 33/255, alpha: 255)
-        case .GreenDull: return UIColor(red: 34/255, green: 57/255, blue: 36/255, alpha: 255)
-
-            
-        case .headerBG: return UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 255)
-        case .headerBorder: return .orange
-        case .HeaderLabel: return .lightGray
-
-
-        case .background: return UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 255)
-        case .Label: return .white
-
-        }
-    }
+//    func drawDottedLine(start p0: CGPoint, end p1: CGPoint) {
+//
+//
+//
+//        let shapeLayer: CAShapeLayer = {
+//            let layer = CAShapeLayer()
+//            layer.strokeColor = UIColor.white.cgColor
+//            layer.lineWidth = 10
+//            layer.lineDashPattern = [7, 3] // 7 is the length of dash, 3 is length of the gap.
+//            return layer
+//        }()
+//
+//        let path = CGMutablePath()
+//        path.addLines(between: [p0, p1])
+//        shapeLayer.path = path
+//        layer.addSublayer(shapeLayer)
+//    }
 }

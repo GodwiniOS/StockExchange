@@ -14,9 +14,6 @@ class ExchangeListVC: UIViewController {
     var exchangeListVM = ExchangeListViewModel()
     
 
-
-    
-
     // MARK: - Methods
     override func viewWillAppear(_ animated: Bool) {
         prepareView()
@@ -37,21 +34,14 @@ class ExchangeListVC: UIViewController {
         exchangelistTV.separatorStyle = .none
         exchangeListVM.delegate = self
         
-
-
-        
         _ = Timer.scheduledTimer(timeInterval: 5, target: self,
                                          selector: #selector(fireTimer), userInfo: nil, repeats: true)
-        
-        
     }
     
     
     @objc func fireTimer() {
         exchangeListVM.generateSecondValues()
     }
-    
-
 }
 
 extension ExchangeListVC: ExchangeListViewModeldelegate {
@@ -79,5 +69,3 @@ extension ExchangeListVC: UITableViewDelegate,UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
 }
-
-
