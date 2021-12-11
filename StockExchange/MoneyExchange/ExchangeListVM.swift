@@ -119,14 +119,14 @@ class ExchangeListViewModel {
                 continue
             }
             
-            let randomBidIntSecond = Int.random(in: 0...99)
+            let randomBidIntSecond = Int.random(in: 10...99)
             let randomBidFloatFirst = round(Float.random(in: 1.01...99.99 * 100) / 100.0)
-            let randomBidIntThird = Int.random(in: 0...9)
+            let randomBidIntThird = Int.random(in: 1...9)
 
             
-            let randomAskIntSecond = Int.random(in: 0...99)
+            let randomAskIntSecond = Int.random(in: 10...99)
             let randomAskFloafFirst = round(Float.random(in: 1.01...99.99 * 100) / 100.0)
-            let randomAskIntThird = Int.random(in: 0...9)
+            let randomAskIntThird = Int.random(in: 1...9)
             
             
             var newBid = MoneyData(first: randomBidFloatFirst, second: randomBidIntSecond, third: Bool.random() ? randomBidIntThird : nil)
